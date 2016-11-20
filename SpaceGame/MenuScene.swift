@@ -37,8 +37,24 @@ class MenuScene: SKScene {
                 let transition = SKTransition.flipHorizontal(withDuration: 0.5)
                 let gameScene = GameScene(size: self.size)
                 self.view?.presentScene(gameScene,transition:transition)
+            } else if nodesArray.first?.name == "difficultyButton" {
+                changeDifficulty()
             }
             
         }
     }
+    
+    func changeDifficulty() {
+        let userDefaults = UserDefaults.standard
+        if difficultyLabelNode.text == "Easy" {
+            difficultyLabelNode.text = "Hard"
+            userDefaults.set(true,forKey:"hard")
+        }else{
+            difficultyLabelNode.text = "Easy"
+            userDefaults.set(false,forKey:"hard")
+        }
+        userDefaults.synchronize()
+    }
+    
+    
 }
