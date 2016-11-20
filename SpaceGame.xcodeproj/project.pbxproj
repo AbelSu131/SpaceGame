@@ -21,6 +21,7 @@
 		BC0D674E1DD4A03900855C0E /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = BC0D674C1DD4A03900855C0E /* Explosion.sks */; };
 		BC0D674F1DD4A03900855C0E /* Starfield.sks in Resources */ = {isa = PBXBuildFile; fileRef = BC0D674D1DD4A03900855C0E /* Starfield.sks */; };
 		BC47F8D11DD75D9700F6E5EB /* MenuScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = BC47F8D01DD75D9700F6E5EB /* MenuScene.sks */; };
+		BC548CC31DE1CC7700F66210 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC548CC21DE1CC7700F66210 /* MenuScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		BC0D674C1DD4A03900855C0E /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
 		BC0D674D1DD4A03900855C0E /* Starfield.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Starfield.sks; sourceTree = "<group>"; };
 		BC47F8D01DD75D9700F6E5EB /* MenuScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MenuScene.sks; sourceTree = "<group>"; };
+		BC548CC21DE1CC7700F66210 /* MenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				BC0D67301DD49D3900855C0E /* Actions.sks */,
 				BC0D67361DD49D3900855C0E /* Main.storyboard */,
 				BC47F8D01DD75D9700F6E5EB /* MenuScene.sks */,
+				BC548CC21DE1CC7700F66210 /* MenuScene.swift */,
 				BC47F8CF1DD75CC100F6E5EB /* Game */,
 				BC47F8CD1DD75B7300F6E5EB /* Emmitters */,
 				BC47F8CE1DD75BD900F6E5EB /* Sounds */,
@@ -197,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC0D67331DD49D3900855C0E /* GameScene.swift in Sources */,
+				BC548CC31DE1CC7700F66210 /* MenuScene.swift in Sources */,
 				BC0D67351DD49D3900855C0E /* GameViewController.swift in Sources */,
 				BC0D672D1DD49D3900855C0E /* AppDelegate.swift in Sources */,
 			);
