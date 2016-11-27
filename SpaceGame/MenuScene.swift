@@ -26,6 +26,13 @@ class MenuScene: SKScene {
         
         difficultyLabelNode = self.childNode(withName:"difficultyLabel") as! SKLabelNode
         
+        let userDefaults = UserDefaults.standard
+        if userDefaults.bool(forKey:"hard") {
+            difficultyLabelNode.text = "Hard"
+        }else {
+            difficultyLabelNode.text = "Easy"
+        }
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

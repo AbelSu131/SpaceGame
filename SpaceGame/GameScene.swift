@@ -29,9 +29,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let motionManager = CMMotionManager()
     var xAcceleration:CGFloat = 0
     
+    var livesArray:[SKSpriteNode]!
+    
+    
+    
     override func didMove(to view: SKView) {
         
-        self.anchorPoint = CGPoint(x:0, y:0) //add
+        addLives()
+        
+        //self.anchorPoint = CGPoint(x:0, y:0) //add
         
         starfield = SKEmitterNode(fileNamed: "Starfield")
         starfield.position = CGPoint(x: 0, y: 1472)
@@ -49,14 +55,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.contactDelegate = self
         
         scoreLabel = SKLabelNode(text: "Score: 0")
-        scoreLabel.position = CGPoint(x: 100, y: self.frame.size.height - 60)
+        scoreLabel.position = CGPoint(x: 80, y: self.frame.size.height - 70)
         scoreLabel.fontName = "AmericanTypewriter-Bold"
         scoreLabel.fontColor = UIColor.white
-        scoreLabel.fontSize = 36
+        scoreLabel.fontSize = 28
         score = 0
         self.addChild(scoreLabel)
         
-        gameTimer = Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(addAlien), userInfo: nil, repeats: true)
+        var timeInterval = 0.75
+        
+        if UserDefaults.standard.bool(forKey: "hard") {
+            timeInterval = 0.3
+        }
+        
+        
+        gameTimer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(addAlien), userInfo: nil, repeats: true)
         
         motionManager.accelerometerUpdateInterval = 0.2
         motionManager.startAccelerometerUpdates(to: OperationQueue.current!) { (data:CMAccelerometerData?, error:Error?) in
@@ -67,6 +80,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
+    
+    
+    func addLives() {
+        livesArray = [SKSpriteNode]()
+        
+        for live in 1 ... 3 {
+            let liveNode = SKSpriteNode(imageNamed: "shuttle")
+            liveNode.position = CGPoint(x: self.frame.size.width - CGFloat(4 - live) * liveNode.size.width, y: self.frame.size.height - 60)
+            self.addChild(liveNode)
+            livesArray.append(liveNode)
+            
+        }
+    }
+    
+    
+    
+    
+    
     
     func addAlien(){
         possibleAliens = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: possibleAliens) as! [String]
@@ -89,6 +120,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let animationDuration:TimeInterval = 6
         var actionArray = [SKAction]()
         actionArray.append(SKAction.move(to: CGPoint(x: position, y: -alien.size.height), duration: animationDuration))
+        
+        actionArray.append(SKAction.run {
+            self.run(SKAction.playSoundFileNamed("lose.mp3", waitForCompletion: false))
+            
+            if self.livesArray.count > 0 {
+                let liveNode = self.livesArray.first
+                liveNode!.removeFromParent()
+                self.livesArray.removeFirst()
+                
+                if self.livesArray.count == 0 {
+                    // GameOverScreen Transition
+                    let transition =  SKTransition.flipHorizontal(withDuration: 0.5)
+                    let gameOver = SKScene(fileNamed: "GameOverScene") as! GameOverScene
+                    gameOver.score = self.score
+                    self.view?.presentScene(gameOver, transition: transition)
+                    
+                }
+                
+                
+            }
+        })
+        
         actionArray.append(SKAction.removeFromParent())
         
         alien.run(SKAction.sequence(actionArray))
